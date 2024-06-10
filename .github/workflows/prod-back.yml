@@ -31,5 +31,5 @@ jobs:
           platforms: ${{ matrix.platform }}
           push: true
           tags: |
-            sigmamales.cr.cloud.ru/networkator:${{ github.sha }}-${{ matrix.platform }}
-            sigmamales.cr.cloud.ru/networkator:latest-${{ matrix.platform }}
+            sigmamales.cr.cloud.ru/networkator:${{ github.sha }}-${{ matrix.platform // '/' / '-' }}
+            sigmamales.cr.cloud.ru/networkator:latest-${{ matrix.platform // '/' / '-' }}
