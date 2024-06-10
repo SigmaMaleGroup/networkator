@@ -20,10 +20,11 @@ jobs:
       - name: Login to Cloud Container Registry
         run: echo "${{ secrets.CLOUDRU_PASS }}" | docker login sigmamales.cr.cloud.ru -u ${{ secrets.CLOUDRU_USER }} --password-stdin
 
-      - name: Build and push  image
+      - name: Build and push image
         uses: docker/build-push-action@v2
         with:
           context: ./
+          platforms: linux/amd64
           push: true
           tags: |
             sigmamales.cr.cloud.ru/networkator:${{ github.sha }}
