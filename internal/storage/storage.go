@@ -45,5 +45,5 @@ func (s storage) CreateSchema() {
 		s.logger.Fatal("Error occurred while executing schema", zap.Error(err))
 	}
 
-	s.logger.Info("Launched with Postgres")
+	s.logger.Info("Schema successfully created/updated")
 }

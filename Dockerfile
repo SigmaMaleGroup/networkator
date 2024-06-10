@@ -12,4 +12,5 @@ WORKDIR /build
 
 COPY --from=builder /build /build
 
+EXPOSE 8080
 ENTRYPOINT ["./build"]

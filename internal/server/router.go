@@ -12,8 +12,14 @@ func (s server) Router() *echo.Echo {
 	e.Use(
 		middleware.Recover(),
 		middleware.Gzip(),
-		//middleware.BasicAuth(),
 	)
+
+	api := e.Group("/api")
+
+	// User group.
+	userPath := api.Group("/user")
+	userPath.POST("/register", nil)
+	userPath.POST("/login", nil)
 
 	return e
 }
