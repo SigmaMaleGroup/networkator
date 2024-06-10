@@ -14,7 +14,7 @@ type storage struct {
 }
 
 var schema = `
-
+	
 `
 
 // New creates a new instance of database layer using Postgres

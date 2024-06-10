@@ -14,7 +14,7 @@ func main() {
 	cfg := config.New(log)
 
 	store := storage.New(cfg.DatabasePath, log)
-	store.CreateSchema()
+	//store.CreateSchema()
 
 	serv := service.New(store, log)
 	httpHandle := handlers.New(serv, log)

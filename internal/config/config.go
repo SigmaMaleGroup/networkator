@@ -9,15 +9,14 @@ import (
 
 // Config provides service address and paths to the database.
 type Config struct {
-	HTTPAddress  string `env:"HTTP_ADDRESS" envDefault:":8000"`
+	HTTPAddress  string `env:"HTTP_ADDRESS" envDefault:":8080"`
 	DatabasePath string `env:"DATABASE_URI"`
 }
 
 // New creates new Config
 func New(logger *zap.Logger) *Config {
 	var config = Config{}
-	var err = env.Parse(&config)
-	if err != nil {
+	if err := env.Parse(&config); err != nil {
 		logger.Error("Error occurred when parsing config", zap.Error(err))
 	}
 
