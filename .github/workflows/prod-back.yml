@@ -3,7 +3,7 @@ name: service prod deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-push-back:
