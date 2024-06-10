@@ -13,6 +13,11 @@ jobs:
         platform: [linux/amd64]
 
     steps:
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV 
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -31,5 +36,5 @@ jobs:
           platforms: ${{ matrix.platform }}
           push: true
           tags: |
-            sigmamales.cr.cloud.ru/networkator:${{ github.sha }}-${{ matrix.platform // '/' / '-' }}
-            sigmamales.cr.cloud.ru/networkator:latest-${{ matrix.platform // '/' / '-' }}
+            sigmamales.cr.cloud.ru/networkator:${{ github.sha }}-${{ env.PLATFORM_PAIR }}
+            sigmamales.cr.cloud.ru/networkator:latest-${{ env.PLATFORM_PAIR }}
