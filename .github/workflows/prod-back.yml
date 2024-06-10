@@ -29,3 +29,4 @@ jobs:
           tags: |
             sigmamales.cr.cloud.ru/networkator:${{ github.sha }}
             sigmamales.cr.cloud.ru/networkator:latest
+          load: true
