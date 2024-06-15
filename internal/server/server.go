@@ -26,6 +26,7 @@ type Handlers interface {
 	ArchiveVacancy(c echo.Context) error
 	VacancyApply(c echo.Context) error
 	ResumeCreate(c echo.Context) error
+	ResumeGet(c echo.Context) error
 }
 
 type Middleware interface {

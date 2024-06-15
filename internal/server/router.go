@@ -38,7 +38,7 @@ func (s server) Router() *echo.Echo {
 	resumePath.Use(s.middleware.CheckToken)
 	resumePath.POST("/new", s.httpHandlers.ResumeCreate)
 	resumePath.POST("/all", nil)
-	resumePath.POST("/:userID", nil)
+	resumePath.POST("/:userID", s.httpHandlers.ResumeGet)
 
 	return e
 }
