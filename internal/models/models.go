@@ -42,8 +42,8 @@ type LoginUserResponse struct {
 	PasswordSalt string
 }
 
-type NewVacancyRequest struct {
-	RecruiterID    int64    `json:"recruiter_id"`
+type VacancyRequest struct {
+	RecruiterID    int64
 	Name           string   `json:"name"`
 	Experience     int64    `json:"experience,omitempty"`
 	City           string   `json:"city,omitempty"`
@@ -63,6 +63,7 @@ type VacancyFilterRequest struct {
 	SalaryFrom     int64  `json:"salary_from,omitempty"`
 	SalaryTo       int64  `json:"salary_to,omitempty"`
 	CompanyName    string `json:"company_name,omitempty"`
+	Archived       bool   `json:"archived,omitempty"`
 }
 
 type VacancyFilterResponse struct {

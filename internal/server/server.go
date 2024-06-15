@@ -22,6 +22,9 @@ type Handlers interface {
 	CreateVacancy(c echo.Context) error
 	GetVacanciesByFilter(c echo.Context) error
 	GetVacancyByID(c echo.Context) error
+	EditVacancy(c echo.Context) error
+	ArchiveVacancy(c echo.Context) error
+	VacancyApply(c echo.Context) error
 }
 
 type Middleware interface {

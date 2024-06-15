@@ -8,7 +8,7 @@ import (
 	"github.com/SigmaMaleGroup/networkator/internal/models"
 )
 
-func (s *storage) CreateVacancy(ctx context.Context, vacancy models.NewVacancyRequest) error {
+func (s *storage) CreateVacancy(ctx context.Context, vacancy models.VacancyRequest) error {
 	conn, err := s.pool.Acquire(ctx)
 	if err != nil {
 		slog.Error("Error while acquiring connection", slog.Any("error", err))

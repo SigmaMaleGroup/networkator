@@ -12,7 +12,7 @@ import (
 	"github.com/SigmaMaleGroup/networkator/internal/models"
 )
 
-func (h *handlers) CreateVacancy(c echo.Context) error {
+func (h *handlers) EditVacancy(c echo.Context) error {
 	var req models.VacancyRequest
 	userIDValue := c.Request().Context().Value(models.CtxUserIDKey).(string)
 
@@ -22,6 +22,14 @@ func (h *handlers) CreateVacancy(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, nil)
 	}
 	req.RecruiterID = int64(userID)
+
+	vacancyIDFromPath := c.Param("vacancyID")
+
+	vacancyID, err := strconv.Atoi(vacancyIDFromPath)
+	if err != nil {
+		slog.Error("Bad vacancy id", slog.Any("error", err), slog.String("vacancy_id", vacancyIDFromPath))
+		return c.JSON(http.StatusBadRequest, nil)
+	}
 
 	body, err := io.ReadAll(c.Request().Body)
 	if err != nil {
@@ -34,7 +42,7 @@ func (h *handlers) CreateVacancy(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
-	if err := h.service.CreateVacancy(c.Request().Context(), req); err != nil {
+	if err := h.service.EditVacancy(c.Request().Context(), int64(vacancyID), req); err != nil {
 		slog.Error("Error in call to create vacancy", slog.Any("error", err))
 		return c.JSON(http.StatusInternalServerError, nil)
 	}

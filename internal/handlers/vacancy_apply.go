@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
-	"io"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -12,29 +10,27 @@ import (
 	"github.com/SigmaMaleGroup/networkator/internal/models"
 )
 
-func (h *handlers) CreateVacancy(c echo.Context) error {
-	var req models.VacancyRequest
+func (h *handlers) VacancyApply(c echo.Context) error {
 	userIDValue := c.Request().Context().Value(models.CtxUserIDKey).(string)
-
 	userID, err := strconv.Atoi(userIDValue)
 	if err != nil {
 		slog.Error("Bad user id", slog.Any("error", err), slog.String("user_id", userIDValue))
 		return c.JSON(http.StatusBadRequest, nil)
 	}
-	req.RecruiterID = int64(userID)
 
-	body, err := io.ReadAll(c.Request().Body)
+	if c.Request().Context().Value(models.CtxRoleKey).(string) != models.Applicant {
+		slog.Error("user id not allowed", slog.String("user_id", userIDValue))
+		return c.JSON(http.StatusMethodNotAllowed, nil)
+	}
+
+	vacancyIDFromPath := c.Param("vacancyID")
+	vacancyID, err := strconv.Atoi(vacancyIDFromPath)
 	if err != nil {
-		slog.Error("Unable to read body", slog.Any("error", err))
-		return c.JSON(http.StatusInternalServerError, nil)
+		slog.Error("Bad vacancy id", slog.Any("error", err), slog.String("vacancy_id", vacancyIDFromPath))
+		return c.JSON(http.StatusBadRequest, nil)
 	}
 
-	if err = json.Unmarshal(body, &req); err != nil {
-		slog.Error("Unable to decode JSON", slog.Any("error", err))
-		return c.JSON(http.StatusInternalServerError, nil)
-	}
-
-	if err := h.service.CreateVacancy(c.Request().Context(), req); err != nil {
+	if err := h.service.VacancyApply(c.Request().Context(), int64(vacancyID), int64(userID)); err != nil {
 		slog.Error("Error in call to create vacancy", slog.Any("error", err))
 		return c.JSON(http.StatusInternalServerError, nil)
 	}

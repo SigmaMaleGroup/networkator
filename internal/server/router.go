@@ -24,9 +24,14 @@ func (s server) Router() *echo.Echo {
 
 	// Vacancy group.
 	vacancyPath := api.Group("/vacancy")
+	vacancyPath.Use(s.middleware.CheckToken)
+
 	vacancyPath.POST("/new", s.httpHandlers.CreateVacancy)
 	vacancyPath.POST("/filter", s.httpHandlers.GetVacanciesByFilter)
 	vacancyPath.GET("/:vacancyID", s.httpHandlers.GetVacancyByID)
+	vacancyPath.POST("/edit/:vacancyID", s.httpHandlers.EditVacancy)
+	vacancyPath.POST("/archive/:vacancyID", s.httpHandlers.ArchiveVacancy)
+	vacancyPath.POST("/apply/:vacancyID", s.httpHandlers.VacancyApply)
 
 	return e
 }

@@ -58,6 +58,10 @@ func (s *storage) GetVacanciesByFilter(
 		queryFilters = append(queryFilters, fmt.Sprintf(`%s <= $%d`, "salary_to", len(args)))
 	}
 
+	if filter.Archived {
+		queryFilters = append(queryFilters, fmt.Sprintf(`%s = true`, "archived"))
+	}
+
 	query += strings.Join(queryFilters, " AND ") + ";"
 
 	rows, err := conn.Query(ctx, query, args...)
