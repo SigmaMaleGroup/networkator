@@ -10,7 +10,7 @@ import (
 	"io"
 	"math/big"
 
-	errs "github.com/SigmaMaleGroup/networkator/internal/customErrors"
+	errs "github.com/SigmaMaleGroup/networkator/internal/custom_errors"
 	"github.com/SigmaMaleGroup/networkator/internal/models"
 	"github.com/SigmaMaleGroup/networkator/internal/tokens"
 )

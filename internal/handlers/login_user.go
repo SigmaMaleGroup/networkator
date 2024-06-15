@@ -9,7 +9,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	errs "github.com/SigmaMaleGroup/networkator/internal/customErrors"
+	errs "github.com/SigmaMaleGroup/networkator/internal/custom_errors"
 	"github.com/SigmaMaleGroup/networkator/internal/models"
 )
 
