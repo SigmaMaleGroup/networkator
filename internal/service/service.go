@@ -16,6 +16,7 @@ type Storage interface {
 	EditVacancy(ctx context.Context, vacancyID int64, vacancy models.VacancyRequest) error
 	ArchiveVacancy(ctx context.Context, vacancyID int64) error
 	VacancyApply(ctx context.Context, vacancyID, userID int64) error
+	ResumeCreate(ctx context.Context, userID int64, resume models.Resume) error
 }
 
 // service provides business-logic

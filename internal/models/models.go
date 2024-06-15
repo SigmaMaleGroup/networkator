@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 // ContextKey is type for context keys
 type ContextKey string
 
@@ -91,4 +93,28 @@ type VacancyFullInfo struct {
 	Address        string   `json:"address,omitempty"`
 	Description    string   `json:"description,omitempty"`
 	EmploymentType int64    `json:"employment_type,omitempty"`
+}
+
+type Resume struct {
+	Fio            string       `json:"fio,omitempty"`
+	Position       string       `json:"position,omitempty"`
+	Gender         int64        `json:"gender,omitempty"`
+	Address        string       `json:"address,omitempty"`
+	BirthDate      time.Time    `json:"birth_date,omitempty"`
+	Phone          string       `json:"phone,omitempty"`
+	SalaryFrom     int64        `json:"salary_from,omitempty"`
+	SalaryTo       int64        `json:"salary_to,omitempty"`
+	Education      string       `json:"education,omitempty"`
+	Skills         []string     `json:"skills,omitempty"`
+	Nationality    string       `json:"nationality,omitempty"`
+	Disabilities   bool         `json:"disabilities,omitempty"`
+	WorkExperience []Experience `json:"work_experience,omitempty"`
+}
+
+type Experience struct {
+	CompanyName string    `json:"company_name,omitempty"`
+	TimeFrom    time.Time `json:"time_from,omitempty"`
+	TimeTo      time.Time `json:"time_to,omitempty"`
+	Position    string    `json:"position,omitempty"`
+	Description string    `json:"description,omitempty"`
 }

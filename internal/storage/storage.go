@@ -19,6 +19,7 @@ var schema = `
 	    							 email text not null,
 	                                 password_hash text not null,
 	                                 password_salt text not null,
+	                                 fio text,
 	                                 is_recruiter boolean not null default false,
 	                                 created_at timestamptz not null default now()
 	);
@@ -51,6 +52,7 @@ var schema = `
 
 	CREATE TABLE IF NOT EXISTS resume (
 	    							 id serial primary key,
+	    							 fio text,
 	    							 user_id bigint not null references users(id),
 	    							 job_name text not null,
 									 gender text not null,

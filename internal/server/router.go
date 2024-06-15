@@ -33,5 +33,12 @@ func (s server) Router() *echo.Echo {
 	vacancyPath.POST("/archive/:vacancyID", s.httpHandlers.ArchiveVacancy)
 	vacancyPath.POST("/apply/:vacancyID", s.httpHandlers.VacancyApply)
 
+	// Resume group.
+	resumePath := api.Group("/resume")
+	resumePath.Use(s.middleware.CheckToken)
+	resumePath.POST("/new", s.httpHandlers.ResumeCreate)
+	resumePath.POST("/all", nil)
+	resumePath.POST("/:userID", nil)
+
 	return e
 }

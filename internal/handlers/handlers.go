@@ -15,6 +15,7 @@ type Service interface {
 	EditVacancy(ctx context.Context, vacancyID int64, vacancy models.VacancyRequest) error
 	ArchiveVacancy(ctx context.Context, vacancyID int64) error
 	VacancyApply(ctx context.Context, vacancyID, userID int64) error
+	ResumeCreate(ctx context.Context, userID int64, resume models.Resume) error
 }
 
 // handlers provides http-handlers for service
