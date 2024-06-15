@@ -59,7 +59,7 @@ func (s *storage) ResumesGetByFilter(ctx context.Context, filter models.ResumeFi
 		}
 		result := strings.Join(quotedSlice, ",")
 
-		queryFilters = append(queryFilters, fmt.Sprintf(`@> ARRAY[%s]`, result))
+		queryFilters = append(queryFilters, fmt.Sprintf(`@> ARRAY[%s]::text[]`, result))
 	}
 
 	query += strings.Join(queryFilters, " AND ") + ";"

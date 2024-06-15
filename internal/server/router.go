@@ -37,7 +37,7 @@ func (s server) Router() *echo.Echo {
 	// Resume group.
 	resumePath := api.Group("/resume")
 	resumePath.Use(s.middleware.CheckToken)
-	
+
 	resumePath.POST("/new", s.httpHandlers.ResumeCreate)
 	resumePath.POST("/filter", s.httpHandlers.ResumesGetByFilter)
 	resumePath.GET("/:userID", s.httpHandlers.ResumeGet)
