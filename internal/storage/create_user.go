@@ -10,7 +10,7 @@ import (
 func (s *storage) CreateUser(ctx context.Context, email, passwordHash, passwordSalt string, isRecruiter bool) (int64, error) {
 	conn, err := s.pool.Acquire(ctx)
 	if err != nil {
-		slog.Error("Error while acquiring connection", err)
+		slog.Error("Error while acquiring connection", slog.Any("error", err))
 		return 0, err
 	}
 	defer conn.Release()
@@ -25,7 +25,7 @@ func (s *storage) CreateUser(ctx context.Context, email, passwordHash, passwordS
 	var userID int64
 
 	if err := row.Scan(&userID); err != nil {
-		slog.Error("Error scanning", err)
+		slog.Error("Error scanning", slog.Any("error", err))
 		return 0, err
 	}
 

@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
 	"log/slog"
 )
 
@@ -13,7 +14,7 @@ func (s *storage) CheckDuplicateUser(ctx context.Context, email string) (bool, e
 
 	conn, err := s.pool.Acquire(ctx)
 	if err != nil {
-		slog.Error("Error while acquiring connection", err)
+		slog.Error("Error while acquiring connection", slog.Any("error", err))
 		return false, err
 	}
 	defer conn.Release()
@@ -23,7 +24,7 @@ func (s *storage) CheckDuplicateUser(ctx context.Context, email string) (bool, e
 			return false, nil
 		}
 
-		return false, err
+		return false, fmt.Errorf("query: %w", err)
 	}
 
 	if dbEmail == email {

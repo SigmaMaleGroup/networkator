@@ -12,7 +12,7 @@ import (
 func (s *storage) LoginUser(ctx context.Context, email string) (models.LoginUserResponse, error) {
 	conn, err := s.pool.Acquire(ctx)
 	if err != nil {
-		slog.Error("Error while acquiring connection", err)
+		slog.Error("Error while acquiring connection", slog.Any("error", err))
 		return models.LoginUserResponse{}, err
 	}
 	defer conn.Release()
@@ -28,7 +28,7 @@ func (s *storage) LoginUser(ctx context.Context, email string) (models.LoginUser
 	row := conn.QueryRow(ctx, query, strings.TrimSpace(email))
 
 	if err := row.Scan(&data.UserID, &data.IsRecruiter, &data.PasswordHash, &data.PasswordSalt); err != nil {
-		slog.Error("Error scanning", err)
+		slog.Error("Error scanning", slog.Any("error", err))
 		return models.LoginUserResponse{}, err
 	}
 

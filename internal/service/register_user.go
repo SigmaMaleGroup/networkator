@@ -6,6 +6,7 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"io"
 	"math/big"
 
@@ -17,23 +18,23 @@ import (
 func (s service) RegisterUser(ctx context.Context, credits *models.RegisterCredentials) (string, error) {
 	exists, err := s.storage.CheckDuplicateUser(ctx, credits.Email)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("check duplicate user: %w", err)
 	}
 
 	if exists {
-		return "", errs.ErrCredentialsInUse
+		return "", fmt.Errorf("user exists: %w", errs.ErrCredentialsInUse)
 	}
 
 	passwordSalt, err := RandSymbols(10)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("get salt: %w", err)
 	}
 
 	passwordHash := mdHash(credits.Password, passwordSalt)
 
 	userID, err := s.storage.CreateUser(ctx, credits.Email, passwordHash, passwordSalt, credits.IsRecruiter)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("create user: %w", err)
 	}
 
 	if userID <= 0 {
