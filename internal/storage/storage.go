@@ -55,7 +55,7 @@ var schema = `
 	    							 fio text,
 	    							 user_id bigint not null references users(id),
 	    							 job_name text not null,
-									 gender text not null,
+									 gender integer not null,
 									 address text, 
 									 birth_date timestamptz,
 									 phone_number text,
