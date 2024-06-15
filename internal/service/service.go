@@ -1,22 +1,25 @@
 package service
 
 import (
-	"go.uber.org/zap"
+	"context"
+
+	"github.com/SigmaMaleGroup/networkator/internal/models"
 )
 
 type Storage interface {
+	CheckDuplicateUser(ctx context.Context, email string) (bool, error)
+	CreateUser(ctx context.Context, email, passwordHash, passwordSalt string, isRecruiter bool) (int64, error)
+	LoginUser(ctx context.Context, email string) (models.LoginUserResponse, error)
 }
 
 // service provides business-logic
 type service struct {
 	storage Storage
-	logger  *zap.Logger
 }
 
 // New creates new instance of actions
-func New(storage Storage, logger *zap.Logger) *service {
+func New(storage Storage) *service {
 	return &service{
 		storage: storage,
-		logger:  logger,
 	}
 }

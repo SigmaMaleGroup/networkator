@@ -2,15 +2,15 @@ package storage
 
 import (
 	"context"
+	"log"
+	"log/slog"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-	"go.uber.org/zap"
 )
 
 type storage struct {
-	pool   *pgxpool.Pool
-	logger *zap.Logger
+	pool *pgxpool.Pool
 }
 
 var schema = `
@@ -56,7 +56,7 @@ var schema = `
 									 salary_from integer,
 	    							 salary_to integer,
 									 education text, 
-									 skills []text, 
+									 skills text[], 
 									 nationality text,
 									 disability boolean,
 									 archived boolean,
@@ -105,32 +105,31 @@ var schema = `
 `
 
 // New creates a new instance of database layer using Postgres
-func New(path string, logger *zap.Logger) *storage {
+func New(path string) *storage {
 	// Wait until database initialize in container
 	time.Sleep(time.Second * 2)
 
 	config, err := pgxpool.ParseConfig(path)
 	if err != nil {
-		logger.Fatal("Unable to parse config", zap.Error(err))
+		log.Fatal("Unable to parse config", err)
 	}
 
 	conn, err := pgxpool.NewWithConfig(context.Background(), config)
 	if err != nil {
-		logger.Fatal("Unable to connect to database", zap.Error(err))
+		log.Fatal("Unable to connect to database", err)
 	}
 
 	return &storage{
-		pool:   conn,
-		logger: logger,
+		pool: conn,
 	}
 }
 
 // CreateSchema executes needed schema
-func (s storage) CreateSchema() {
+func (s *storage) CreateSchema() {
 	_, err := s.pool.Exec(context.Background(), schema)
 	if err != nil {
-		s.logger.Fatal("Error occurred while executing schema", zap.Error(err))
+		log.Fatal("Error occurred while executing schema", err)
 	}
 
-	s.logger.Info("Schema successfully created/updated")
+	slog.Info("Schema successfully created/updated")
 }

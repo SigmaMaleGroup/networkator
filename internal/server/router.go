@@ -12,14 +12,15 @@ func (s server) Router() *echo.Echo {
 	e.Use(
 		middleware.Recover(),
 		middleware.Gzip(),
+		s.middleware.RequestLogger,
 	)
 
 	api := e.Group("/api")
 
 	// User group.
 	userPath := api.Group("/user")
-	userPath.POST("/register", nil)
-	userPath.POST("/login", nil)
+	userPath.POST("/register", s.httpHandlers.RegisterUser)
+	userPath.POST("/login", s.httpHandlers.LoginUser)
 
 	return e
 }

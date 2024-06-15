@@ -3,32 +3,45 @@ package server
 import (
 	"context"
 	"errors"
+	"log"
+	"log/slog"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
-	"go.uber.org/zap"
+	"github.com/labstack/echo/v4"
 
 	"github.com/SigmaMaleGroup/networkator/internal/config"
 )
 
 type Handlers interface {
+	RegisterUser(c echo.Context) error
+	LoginUser(c echo.Context) error
+}
+
+type Middleware interface {
+	CheckToken(next echo.HandlerFunc) echo.HandlerFunc
+	RequestLogger(next echo.HandlerFunc) echo.HandlerFunc
 }
 
 // server provides a single configuration out of all components
 type server struct {
 	httpHandlers Handlers
+	middleware   Middleware
 	config       *config.Config
-	logger       *zap.Logger
 }
 
 // NewByConfig returns server instance with default config
-func NewByConfig(httpHandlers Handlers, logger *zap.Logger, config *config.Config) *server {
+func NewByConfig(
+	httpHandlers Handlers,
+	middleware Middleware,
+	config *config.Config,
+) *server {
 	return &server{
 		httpHandlers: httpHandlers,
-		logger:       logger,
+		middleware:   middleware,
 		config:       config,
 	}
 }
@@ -51,22 +64,22 @@ func (s server) Run() {
 		go func() {
 			<-shutdownCtx.Done()
 			if errors.Is(shutdownCtx.Err(), context.DeadlineExceeded) {
-				s.logger.Fatal("graceful shutdown timed out.. forcing exit.")
+				log.Fatal("graceful shutdown timed out.. forcing exit.")
 			}
 		}()
 
 		err := httpServ.Shutdown(shutdownCtx)
 		if err != nil {
-			s.logger.Fatal("Error shutting down", zap.Error(err))
+			log.Fatal("Error shutting down", err)
 		}
 
-		s.logger.Info("Server shut down", zap.String("http", s.config.HTTPAddress))
+		slog.Info("Server shut down", slog.String("http", s.config.HTTPAddress))
 		serverStopCtx()
 	}()
 
-	s.logger.Info("Server started", zap.String("http", s.config.HTTPAddress))
+	slog.Info("Server started", slog.String("http", s.config.HTTPAddress))
 	if err := httpServ.ListenAndServe(); err != nil {
-		s.logger.Fatal("Cant start server", zap.Error(err))
+		log.Fatal("Cant start server", err)
 	}
 
 	<-serverCtx.Done()

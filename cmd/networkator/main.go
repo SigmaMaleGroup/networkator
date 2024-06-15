@@ -1,24 +1,33 @@
 package main
 
 import (
+	"log/slog"
+	"os"
+
 	"github.com/SigmaMaleGroup/networkator/internal/config"
 	"github.com/SigmaMaleGroup/networkator/internal/handlers"
-	"github.com/SigmaMaleGroup/networkator/internal/logger"
+	"github.com/SigmaMaleGroup/networkator/internal/middleware"
+
 	"github.com/SigmaMaleGroup/networkator/internal/server"
 	"github.com/SigmaMaleGroup/networkator/internal/service"
 	"github.com/SigmaMaleGroup/networkator/internal/storage"
 )
 
 func main() {
-	log := logger.InitializeLogger()
-	cfg := config.New(log)
+	slog.SetDefault(
+		slog.New(slog.NewJSONHandler(os.Stdout, nil)),
+	)
 
-	store := storage.New(cfg.DatabasePath, log)
+	cfg := config.New()
+
+	store := storage.New(cfg.DatabasePath)
 	store.CreateSchema()
 
-	serv := service.New(store, log)
-	httpHandle := handlers.New(serv, log)
+	serv := service.New(store)
+	httpHandle := handlers.New(serv, cfg.Domain)
 
-	srv := server.NewByConfig(httpHandle, log, cfg)
+	mdware := middleware.New()
+
+	srv := server.NewByConfig(httpHandle, mdware, cfg)
 	srv.Run()
 }
