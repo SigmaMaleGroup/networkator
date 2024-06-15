@@ -2,10 +2,11 @@ package storage
 
 import (
 	"context"
-	"database/sql"
 	"errors"
 	"fmt"
 	"log/slog"
+
+	"github.com/jackc/pgx/v5"
 )
 
 // CheckDuplicateUser checks if user is already existing
@@ -20,7 +21,7 @@ func (s *storage) CheckDuplicateUser(ctx context.Context, email string) (bool, e
 	defer conn.Release()
 
 	if err := conn.QueryRow(ctx, "SELECT email FROM users WHERE email = $1", email).Scan(&dbEmail); err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
+		if errors.Is(err, pgx.ErrNoRows) {
 			return false, nil
 		}
 
