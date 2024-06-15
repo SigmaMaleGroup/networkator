@@ -36,7 +36,7 @@ var schema = `
 									 skills text[],
 									 address text,
 									 description text,
-	    							 archived boolean,
+	    							 archived boolean default false,
 	    							 created_at timestamptz not null default now()
 	);
 
@@ -45,7 +45,7 @@ var schema = `
 	    							 vacancy_id bigint not null references vacancies(id),
 	    							 user_id bigint not null references users(id),
 	    							 stage text,
-	    							 archived boolean,
+	    							 archived boolean default false,
 	    							 created_at timestamptz not null default now()
 	);
 
@@ -63,7 +63,7 @@ var schema = `
 									 skills text[], 
 									 nationality text,
 									 disability boolean,
-									 archived boolean,
+									 archived boolean default false,
 	    							 created_at timestamptz not null default now()
 	);
 
@@ -83,7 +83,7 @@ var schema = `
 	    							 user_id bigint not null references users(id),
 	    							 type text,
 	    							 message text,
-	    							 archived boolean,
+	    							 archived boolean default false,
 	    							 created_at timestamptz not null default now()
 	);
 
@@ -93,7 +93,7 @@ var schema = `
 	    							 time timestamptz,
 	    							 name text,
 	    							 description text,
-	    							 archived boolean,
+	    							 archived boolean default false,
 	    							 created_at timestamptz not null default now()
 	);
 
@@ -103,7 +103,7 @@ var schema = `
 	    							 time_from timestamptz,
 	    							 time_to timestamptz,
 	    							 occupied boolean,
-	    							 archived boolean,
+	    							 archived boolean default false,
 	    							 created_at timestamptz not null default now()
 	);
 `

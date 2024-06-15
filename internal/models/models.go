@@ -70,6 +70,7 @@ type VacancyFilterResponse struct {
 }
 
 type VacancyShortInfo struct {
+	ID             int64  `json:"id"`
 	Name           string `json:"name"`
 	SalaryFrom     int64  `json:"salary_from,omitempty"`
 	SalaryTo       int64  `json:"salary_to,omitempty"`

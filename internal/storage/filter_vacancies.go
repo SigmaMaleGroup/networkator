@@ -23,7 +23,7 @@ func (s *storage) GetVacanciesByFilter(
 	queryFilters := make([]string, 0, 2)
 	args := make([]any, 0, 2)
 	query := `
-      		SELECT name, salary_from, salary_to, city, employment_type, description 
+      		SELECT id, name, salary_from, salary_to, city, employment_type, description 
       		FROM vacancies
       		WHERE
 	`
@@ -50,12 +50,12 @@ func (s *storage) GetVacanciesByFilter(
 
 	if filter.SalaryFrom > 0 {
 		args = append(args, filter.SalaryFrom)
-		queryFilters = append(queryFilters, fmt.Sprintf(`%s > $%d`, "salary_from", len(args)))
+		queryFilters = append(queryFilters, fmt.Sprintf(`%s >= $%d`, "salary_from", len(args)))
 	}
 
 	if filter.SalaryTo > 0 {
 		args = append(args, filter.SalaryTo)
-		queryFilters = append(queryFilters, fmt.Sprintf(`%s < $%d`, "salary_to", len(args)))
+		queryFilters = append(queryFilters, fmt.Sprintf(`%s <= $%d`, "salary_to", len(args)))
 	}
 
 	query += strings.Join(queryFilters, " AND ") + ";"
@@ -71,6 +71,7 @@ func (s *storage) GetVacanciesByFilter(
 		var vacancy models.VacancyShortInfo
 
 		if err := rows.Scan(
+			&vacancy.ID,
 			&vacancy.Name,
 			&vacancy.SalaryFrom,
 			&vacancy.SalaryTo,
