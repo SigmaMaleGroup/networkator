@@ -17,6 +17,7 @@ type Service interface {
 	VacancyApply(ctx context.Context, vacancyID, userID int64) error
 	ResumeCreate(ctx context.Context, userID int64, resume models.Resume) error
 	ResumeGet(ctx context.Context, userID int64) (models.Resume, error)
+	ResumesGetByFilter(ctx context.Context, filter models.ResumeFilterRequest) ([]models.Resume, error)
 }
 
 // handlers provides http-handlers for service

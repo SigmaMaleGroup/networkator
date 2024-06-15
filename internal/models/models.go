@@ -68,6 +68,13 @@ type VacancyFilterRequest struct {
 	Archived       bool   `json:"archived,omitempty"`
 }
 
+type ResumeFilterRequest struct {
+	SalaryFrom int64    `json:"salary_from,omitempty"`
+	SalaryTo   int64    `json:"salary_to,omitempty"`
+	Education  bool     `json:"education,omitempty"`
+	Skills     []string `json:"skills,omitempty"`
+}
+
 type VacancyFilterResponse struct {
 	Vacancies []VacancyShortInfo `json:"vacancies"`
 }
@@ -96,6 +103,7 @@ type VacancyFullInfo struct {
 }
 
 type Resume struct {
+	ID             int64        `json:"id,omitempty"`
 	Fio            string       `json:"fio,omitempty"`
 	Position       string       `json:"position,omitempty"`
 	Gender         int64        `json:"gender,omitempty"`
