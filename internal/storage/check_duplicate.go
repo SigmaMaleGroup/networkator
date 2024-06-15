@@ -2,6 +2,8 @@ package storage
 
 import (
 	"context"
+	"database/sql"
+	"errors"
 	"log/slog"
 )
 
@@ -17,6 +19,10 @@ func (s *storage) CheckDuplicateUser(ctx context.Context, email string) (bool, e
 	defer conn.Release()
 
 	if err := conn.QueryRow(ctx, "SELECT email FROM users WHERE email = $1", email).Scan(&dbEmail); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return false, nil
+		}
+
 		return false, err
 	}
 
