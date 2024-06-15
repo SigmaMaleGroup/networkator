@@ -3,6 +3,7 @@ package middleware
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"os"
@@ -43,11 +44,11 @@ func (m middleware) CheckToken(next echo.HandlerFunc) echo.HandlerFunc {
 			}
 
 			if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-				userID := claims["userID"].(int64)
+				userID := claims["userID"].(float64)
 				email := claims["email"].(string)
 				role := claims["role"].(string)
 
-				ctx := context.WithValue(c.Request().Context(), models.CtxUserIDKey, userID)
+				ctx := context.WithValue(c.Request().Context(), models.CtxUserIDKey, fmt.Sprintf("%v", int64(userID)))
 				ctx = context.WithValue(ctx, models.CtxEmailKey, email)
 				ctx = context.WithValue(ctx, models.CtxRoleKey, role)
 
