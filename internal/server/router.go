@@ -26,6 +26,7 @@ func (s server) Router() *echo.Echo {
 	vacancyPath := api.Group("/vacancy")
 	vacancyPath.POST("/new", s.httpHandlers.CreateVacancy)
 	vacancyPath.POST("/filter", s.httpHandlers.GetVacanciesByFilter)
+	vacancyPath.GET("/:vacancyID", s.httpHandlers.GetVacancyByID)
 
 	return e
 }

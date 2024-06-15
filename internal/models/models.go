@@ -78,3 +78,16 @@ type VacancyShortInfo struct {
 	EmploymentType int64  `json:"employment_type,omitempty"`
 	Description    string `json:"description,omitempty"`
 }
+
+type VacancyFullInfo struct {
+	ID             int64    `json:"id"`
+	Name           string   `json:"name"`
+	City           string   `json:"city,omitempty"`
+	SalaryFrom     int64    `json:"salary_from,omitempty"`
+	SalaryTo       int64    `json:"salary_to,omitempty"`
+	Skills         []string `json:"skills,omitempty"`
+	Experience     int64    `json:"experience,omitempty"`
+	Address        string   `json:"address,omitempty"`
+	Description    string   `json:"description,omitempty"`
+	EmploymentType int64    `json:"employment_type,omitempty"`
+}

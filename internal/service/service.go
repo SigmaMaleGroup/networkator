@@ -12,6 +12,7 @@ type Storage interface {
 	LoginUser(ctx context.Context, email string) (models.LoginUserResponse, error)
 	CreateVacancy(ctx context.Context, vacancy models.NewVacancyRequest) error
 	GetVacanciesByFilter(ctx context.Context, filter models.VacancyFilterRequest) ([]models.VacancyShortInfo, error)
+	GetVacancyByID(ctx context.Context, vacancyID int64) (models.VacancyFullInfo, error)
 }
 
 // service provides business-logic

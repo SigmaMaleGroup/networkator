@@ -11,6 +11,7 @@ type Service interface {
 	RegisterUser(ctx context.Context, credits *models.RegisterCredentials) (string, error)
 	CreateVacancy(ctx context.Context, vacancy models.NewVacancyRequest) error
 	GetVacanciesByFilter(ctx context.Context, filter models.VacancyFilterRequest) (models.VacancyFilterResponse, error)
+	GetVacancyByID(ctx context.Context, vacancyID int64) (models.VacancyFullInfo, error)
 }
 
 // handlers provides http-handlers for service

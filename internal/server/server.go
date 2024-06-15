@@ -21,6 +21,7 @@ type Handlers interface {
 	LoginUser(c echo.Context) error
 	CreateVacancy(c echo.Context) error
 	GetVacanciesByFilter(c echo.Context) error
+	GetVacancyByID(c echo.Context) error
 }
 
 type Middleware interface {
