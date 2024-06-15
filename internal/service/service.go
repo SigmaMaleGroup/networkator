@@ -19,6 +19,7 @@ type Storage interface {
 	ResumeCreate(ctx context.Context, userID int64, resume models.Resume) error
 	ResumeGet(ctx context.Context, userID int64) (models.Resume, error)
 	ResumesGetByFilter(ctx context.Context, filter models.ResumeFilterRequest) ([]models.Resume, error)
+	StagesGet(ctx context.Context, request models.GetUsersStagesRequest) ([]models.ResumeForStages, error)
 }
 
 // service provides business-logic

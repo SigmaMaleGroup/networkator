@@ -53,5 +53,5 @@ func (h *handlers) RegisterUser(c echo.Context) error {
 		Path:   "/",
 	})
 
-	return nil
+	return c.JSON(http.StatusOK, models.AuthResponse{Token: token})
 }

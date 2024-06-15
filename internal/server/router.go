@@ -42,5 +42,11 @@ func (s server) Router() *echo.Echo {
 	resumePath.POST("/filter", s.httpHandlers.ResumesGetByFilter)
 	resumePath.GET("/:userID", s.httpHandlers.ResumeGet)
 
+	// Stages group.
+	stagesPath := api.Group("/stages")
+	stagesPath.Use(s.middleware.CheckToken)
+
+	stagesPath.POST("/", s.httpHandlers.StagesGet)
+
 	return e
 }

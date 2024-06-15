@@ -28,6 +28,7 @@ type Handlers interface {
 	ResumeCreate(c echo.Context) error
 	ResumeGet(c echo.Context) error
 	ResumesGetByFilter(c echo.Context) error
+	StagesGet(c echo.Context) error
 }
 
 type Middleware interface {
