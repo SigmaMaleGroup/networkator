@@ -23,7 +23,7 @@ func New() *Config {
 
 	flag.StringVar(&config.HTTPAddress, "h", config.HTTPAddress, "http launch address")
 	flag.StringVar(&config.DatabasePath, "s", config.DatabasePath, "Path to database")
-	flag.StringVar(&config.DatabasePath, "d", config.Domain, "Domain")
+	flag.StringVar(&config.Domain, "d", config.Domain, "Domain")
 	flag.Parse()
 
 	return &config
