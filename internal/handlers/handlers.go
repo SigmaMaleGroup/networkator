@@ -9,6 +9,8 @@ import (
 type Service interface {
 	LoginUser(ctx context.Context, email, password string) (string, error)
 	RegisterUser(ctx context.Context, credits *models.RegisterCredentials) (string, error)
+	CreateVacancy(ctx context.Context, vacancy models.NewVacancyRequest) error
+	GetVacanciesByFilter(ctx context.Context, filter models.VacancyFilterRequest) (models.VacancyFilterResponse, error)
 }
 
 // handlers provides http-handlers for service

@@ -2,16 +2,21 @@ package storage
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
 	"strings"
 )
 
 // CreateUser inserts new user's data in the database
-func (s *storage) CreateUser(ctx context.Context, email, passwordHash, passwordSalt string, isRecruiter bool) (int64, error) {
+func (s *storage) CreateUser(
+	ctx context.Context,
+	email, passwordHash, passwordSalt string,
+	isRecruiter bool,
+) (int64, error) {
 	conn, err := s.pool.Acquire(ctx)
 	if err != nil {
 		slog.Error("Error while acquiring connection", slog.Any("error", err))
-		return 0, err
+		return 0, fmt.Errorf("could not acquire conn: %w", err)
 	}
 	defer conn.Release()
 

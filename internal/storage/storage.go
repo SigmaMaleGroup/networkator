@@ -26,12 +26,16 @@ var schema = `
 	CREATE TABLE IF NOT EXISTS vacancies (
 	    							 id serial primary key,
 	    							 recruiter_id integer not null references users(id),
-	    							 experience text,
+	    							 name text,
+	    							 experience integer,
 	    							 city text,
-	    							 employment_type text,
+	    							 employment_type integer,
 	    							 salary_from integer,
 	    							 salary_to integer,
 	    							 company_name text,
+									 skills text[],
+									 address text,
+									 description text,
 	    							 archived boolean,
 	    							 created_at timestamptz not null default now()
 	);

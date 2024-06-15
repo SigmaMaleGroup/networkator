@@ -15,7 +15,7 @@ import (
 	"github.com/SigmaMaleGroup/networkator/internal/tokens"
 )
 
-func (s service) RegisterUser(ctx context.Context, credits *models.RegisterCredentials) (string, error) {
+func (s *service) RegisterUser(ctx context.Context, credits *models.RegisterCredentials) (string, error) {
 	exists, err := s.storage.CheckDuplicateUser(ctx, credits.Email)
 	if err != nil {
 		return "", fmt.Errorf("check duplicate user: %w", err)

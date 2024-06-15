@@ -22,5 +22,9 @@ func (s server) Router() *echo.Echo {
 	userPath.POST("/register", s.httpHandlers.RegisterUser)
 	userPath.POST("/login", s.httpHandlers.LoginUser)
 
+	// Vacancy group.
+	vacancyPath := api.Group("/vacancy")
+	vacancyPath.POST("/new", s.httpHandlers.CreateVacancy)
+
 	return e
 }

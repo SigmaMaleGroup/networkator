@@ -8,7 +8,7 @@ import (
 	"github.com/SigmaMaleGroup/networkator/internal/tokens"
 )
 
-func (s service) LoginUser(ctx context.Context, email, password string) (string, error) {
+func (s *service) LoginUser(ctx context.Context, email, password string) (string, error) {
 	res, err := s.storage.LoginUser(ctx, email)
 	if err != nil {
 		return "", err
