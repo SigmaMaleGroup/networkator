@@ -19,12 +19,12 @@ func (h *handlers) LoginUser(c echo.Context) error {
 
 	body, err := io.ReadAll(c.Request().Body)
 	if err != nil {
-		slog.Error("Unable to read body", err)
+		slog.Error("Unable to read body", slog.Any("error", err))
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
 	if err = json.Unmarshal(body, &req); err != nil {
-		slog.Error("Unable to decode JSON", err)
+		slog.Error("Unable to decode JSON", slog.Any("error", err))
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
