@@ -36,6 +36,7 @@ func (h *handlers) VacancyApply(c echo.Context) error {
 	}
 
 	c.Response().Header().Add("Access-Control-Allow-Credentials", "true")
+	c.Response().Header().Add("Access-Control-Allow-Origin", "https://"+h.domain)
 
 	return nil
 }

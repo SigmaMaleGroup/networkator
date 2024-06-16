@@ -13,7 +13,6 @@ func (s server) Router() *echo.Echo {
 		middleware.Recover(),
 		middleware.Gzip(),
 		s.middleware.RequestLogger,
-		middleware.CORS(),
 	)
 
 	api := e.Group("/api")

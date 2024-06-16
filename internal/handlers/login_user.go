@@ -44,6 +44,7 @@ func (h *handlers) LoginUser(c echo.Context) error {
 	}
 
 	c.Response().Header().Add("Access-Control-Allow-Credentials", "true")
+	c.Response().Header().Add("Access-Control-Allow-Origin", "https://"+h.domain)
 
 	c.SetCookie(&http.Cookie{
 		Name:   "auth",
