@@ -31,8 +31,5 @@ func (h *handlers) GetVacanciesByFilter(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
-	c.Response().Header().Add("Access-Control-Allow-Credentials", "true")
-	c.Response().Header().Add("Access-Control-Allow-Origin", "https://"+h.domain)
-
 	return c.JSON(http.StatusOK, resp)
 }

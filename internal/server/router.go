@@ -13,6 +13,14 @@ func (s server) Router() *echo.Echo {
 		middleware.Recover(),
 		middleware.Gzip(),
 		s.middleware.RequestLogger,
+		middleware.CORSWithConfig(middleware.CORSConfig{
+			AllowOrigins:     []string{"https://" + s.config.Domain, "http://" + s.config.Domain},
+			AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+			AllowHeaders:     []string{"Accept", "Authorization", "Content-Type"},
+			AllowCredentials: true,
+			ExposeHeaders:    []string{"Link"},
+			MaxAge:           300,
+		}),
 	)
 
 	api := e.Group("/api")

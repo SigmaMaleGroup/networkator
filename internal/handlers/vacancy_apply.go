@@ -35,8 +35,5 @@ func (h *handlers) VacancyApply(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
-	c.Response().Header().Add("Access-Control-Allow-Credentials", "true")
-	c.Response().Header().Add("Access-Control-Allow-Origin", "https://"+h.domain)
-
 	return nil
 }
