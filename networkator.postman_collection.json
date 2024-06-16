@@ -1,0 +1,318 @@
+{
+	"info": {
+		"_postman_id": "60fef3c7-cb6e-4b42-8a15-c702e0578640",
+		"name": "networkator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18999628"
+	},
+	"item": [
+		{
+			"name": "register user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@test.com\",\n    \"password\": \"someppswd\",\n    \"is_recruiter\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sigmamalegroup-networkator-09b5.twc1.net/api/user/register",
+					"protocol": "https",
+					"host": [
+						"sigmamalegroup-networkator-09b5",
+						"twc1",
+						"net"
+					],
+					"path": [
+						"api",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@test.com\",\n    \"password\": \"someppswd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sigmamalegroup-networkator-09b5.twc1.net/api/user/login",
+					"protocol": "https",
+					"host": [
+						"sigmamalegroup-networkator-09b5",
+						"twc1",
+						"net"
+					],
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new vacancy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Senior Python Developer\",\n    \"experience\": 2,\n    \"city\": \"moscow\",\n    \"employment_type\": 3,\n    \"salary_from\": 100000,\n    \"salary_to\": 200000,\n    \"company_name\": \"Rekru inc.\",\n    \"skills\": [\"Go\", \"Python\"],\n    \"address\": \"Москва, ул. Менделеева 1\",\n    \"description\": \"Зовем всех\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sigmamalegroup-networkator-09b5.twc1.net/api/vacancy/new",
+					"protocol": "https",
+					"host": [
+						"sigmamalegroup-networkator-09b5",
+						"twc1",
+						"net"
+					],
+					"path": [
+						"api",
+						"vacancy",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit vacancy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Senior Python Developer\",\n    \"experience\": 2,\n    \"city\": \"moscow\",\n    \"employment_type\": 3,\n    \"salary_from\": 100000,\n    \"salary_to\": 200000,\n    \"company_name\": \"Rekru inc.\",\n    \"skills\": [\"Go\", \"Python\"],\n    \"address\": \"Москва, ул. Менделеева 1\",\n    \"description\": \"Зовем всех\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sigmamalegroup-networkator-09b5.twc1.net/api/vacancy/edit/1",
+					"protocol": "https",
+					"host": [
+						"sigmamalegroup-networkator-09b5",
+						"twc1",
+						"net"
+					],
+					"path": [
+						"api",
+						"vacancy",
+						"edit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filter vacancies",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    // \"experience\": \"\",\n    \"city\": \"moscow\", // город должен заполнятся всегда\n    // \"employment_type\": \"\",\n    // \"salary_from\": 10000\n    // \"salary_to\": 160000\n    // \"company_name\": \"\"\n    \"archived\": false // включать ли в выборку арихвированные вакансии\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sigmamalegroup-networkator-09b5.twc1.net/api/vacancy/filter",
+					"protocol": "https",
+					"host": [
+						"sigmamalegroup-networkator-09b5",
+						"twc1",
+						"net"
+					],
+					"path": [
+						"api",
+						"vacancy",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "archive vacancy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://sigmamalegroup-networkator-09b5.twc1.net/api/vacancy/archive/1",
+					"protocol": "https",
+					"host": [
+						"sigmamalegroup-networkator-09b5",
+						"twc1",
+						"net"
+					],
+					"path": [
+						"api",
+						"vacancy",
+						"archive",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apply vacancy (for user)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://sigmamalegroup-networkator-09b5.twc1.net/api/vacancy/apply/1",
+					"protocol": "https",
+					"host": [
+						"sigmamalegroup-networkator-09b5",
+						"twc1",
+						"net"
+					],
+					"path": [
+						"api",
+						"vacancy",
+						"apply",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "resume create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fio\": \"Иванов Иван Иванович\",\n    \"position\": \"СЕО\",\n    \"gender\": 1,\n    \"address\": \"Москва, ул. Менделеева 1\",\n    \"birth_date\": \"1996-03-03T00:06:56.52Z\",\n    \"phone\": \"78887776677\",\n    \"salary_from\": 100000,\n    \"salary_to\": 200000,\n    \"education\": \"Бакалавр биолог\",\n    \"skills\": [\"Python\", \"Go\"],\n    \"nationality\": \"Русский\",\n    \"disabilities\": false,\n    \"work_experience\": [\n        {\n            \"company_name\": \"Rekru inc.\",\n            \"time_from\": \"2002-03-03T00:06:56.52Z\",\n            \"time_to\": \"2020-03-03T00:06:56.52Z\",\n            \"position\": \"CTO\",\n            \"description\": \"Делал сё\"\n        },\n        {\n            \"company_name\": \"Rekru inc.\",\n            \"time_from\": \"2020-03-03T00:06:56.52Z\",\n            \"time_to\": \"2021-03-03T00:06:56.52Z\",\n            \"position\": \"Tech lead\",\n            \"description\": \"Делал то\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sigmamalegroup-networkator-09b5.twc1.net/api/resume/new",
+					"protocol": "https",
+					"host": [
+						"sigmamalegroup-networkator-09b5",
+						"twc1",
+						"net"
+					],
+					"path": [
+						"api",
+						"resume",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "resume filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    // \"salary_from\": 1,\n    // \"salary_to\": 1,\n    \"education\": false // всегда отдает людей с образованием! если флаг true – отдает и людей без образования\n    // \"skills\": [\"Python\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sigmamalegroup-networkator-09b5.twc1.net/api/resume/filter",
+					"protocol": "https",
+					"host": [
+						"sigmamalegroup-networkator-09b5",
+						"twc1",
+						"net"
+					],
+					"path": [
+						"api",
+						"resume",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "resume get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sigmamalegroup-networkator-09b5.twc1.net/api/resume/1",
+					"protocol": "https",
+					"host": [
+						"sigmamalegroup-networkator-09b5",
+						"twc1",
+						"net"
+					],
+					"path": [
+						"api",
+						"resume",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sigmamalegroup-networkator-09b5.twc1.net/api/vacancy/1",
+					"protocol": "https",
+					"host": [
+						"sigmamalegroup-networkator-09b5",
+						"twc1",
+						"net"
+					],
+					"path": [
+						"api",
+						"vacancy",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

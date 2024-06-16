@@ -1,0 +1,333 @@
+openapi: 3.0.3
+info:
+  title: Networkator API
+  description: API documentation for Networkator
+  version: 1.0.0
+servers:
+  - url: https://sigmamalegroup-networkator-09b5.twc1.net
+paths:
+  /api/user/register:
+    post:
+      summary: Register User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@test.com
+                password:
+                  type: string
+                  example: someppswd
+                is_recruiter:
+                  type: boolean
+                  example: true
+      responses:
+        '200':
+          description: Successful operation
+  /api/user/login:
+    post:
+      summary: Login User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@test.com
+                password:
+                  type: string
+                  example: someppswd
+      responses:
+        '200':
+          description: Successful operation
+  /api/vacancy/new:
+    post:
+      summary: Create New Vacancy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Senior Python Developer
+                experience:
+                  type: integer
+                  example: 2
+                city:
+                  type: string
+                  example: moscow
+                employment_type:
+                  type: integer
+                  example: 3
+                salary_from:
+                  type: integer
+                  example: 100000
+                salary_to:
+                  type: integer
+                  example: 200000
+                company_name:
+                  type: string
+                  example: Rekru inc.
+                skills:
+                  type: array
+                  items:
+                    type: string
+                  example: [Go, Python]
+                address:
+                  type: string
+                  example: Москва, ул. Менделеева 1
+                description:
+                  type: string
+                  example: Зовем всех
+      responses:
+        '200':
+          description: Successful operation
+  /api/vacancy/edit/{id}:
+    post:
+      summary: Edit Vacancy
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Senior Python Developer
+                experience:
+                  type: integer
+                  example: 2
+                city:
+                  type: string
+                  example: moscow
+                employment_type:
+                  type: integer
+                  example: 3
+                salary_from:
+                  type: integer
+                  example: 100000
+                salary_to:
+                  type: integer
+                  example: 200000
+                company_name:
+                  type: string
+                  example: Rekru inc.
+                skills:
+                  type: array
+                  items:
+                    type: string
+                  example: [Go, Python]
+                address:
+                  type: string
+                  example: Москва, ул. Менделеева 1
+                description:
+                  type: string
+                  example: Зовем всех
+      responses:
+        '200':
+          description: Successful operation
+  /api/vacancy/filter:
+    post:
+      summary: Filter Vacancies
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                  example: moscow
+                experience:
+                  type: integer
+                  example: 2
+                employment_type:
+                  type: integer
+                  example: 3
+                salary_from:
+                  type: integer
+                  example: 10000
+                salary_to:
+                  type: integer
+                  example: 160000
+                company_name:
+                  type: string
+                  example: Some Company
+                archived:
+                  type: boolean
+                  example: false
+      responses:
+        '200':
+          description: Successful operation
+  /api/vacancy/archive/{id}:
+    post:
+      summary: Archive Vacancy
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Successful operation
+  /api/vacancy/apply/{id}:
+    post:
+      summary: Apply for Vacancy
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Successful operation
+  /api/resume/new:
+    post:
+      summary: Create Resume
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fio:
+                  type: string
+                  example: Иванов Иван Иванович
+                position:
+                  type: string
+                  example: СЕО
+                gender:
+                  type: integer
+                  example: 1
+                address:
+                  type: string
+                  example: Москва, ул. Менделеева 1
+                birth_date:
+                  type: string
+                  format: date-time
+                  example: 1996-03-03T00:06:56.52Z
+                phone:
+                  type: string
+                  example: 78887776677
+                salary_from:
+                  type: integer
+                  example: 100000
+                salary_to:
+                  type: integer
+                  example: 200000
+                education:
+                  type: string
+                  example: Бакалавр биолог
+                skills:
+                  type: array
+                  items:
+                    type: string
+                  example: [Python, Go]
+                nationality:
+                  type: string
+                  example: Русский
+                disabilities:
+                  type: boolean
+                  example: false
+                work_experience:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      company_name:
+                        type: string
+                        example: Rekru inc.
+                      time_from:
+                        type: string
+                        format: date-time
+                        example: 2002-03-03T00:06:56.52Z
+                      time_to:
+                        type: string
+                        format: date-time
+                        example: 2020-03-03T00:06:56.52Z
+                      position:
+                        type: string
+                        example: CTO
+                      description:
+                        type: string
+                        example: Делал сё
+      responses:
+        '200':
+          description: Successful operation
+  /api/resume/filter:
+    post:
+      summary: Filter Resumes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                salary_from:
+                  type: integer
+                  example: 10000
+                salary_to:
+                  type: integer
+                  example: 160000
+                education:
+                  type: boolean
+                  example: false
+                skills:
+                  type: array
+                  items:
+                    type: string
+                  example: [Python]
+      responses:
+        '200':
+          description: Successful operation
+  /api/resume/{id}:
+    get:
+      summary: Get Resume by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Successful operation
+  /api/vacancy/{id}:
+    get:
+      summary: Get Vacancy by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Successful operation
