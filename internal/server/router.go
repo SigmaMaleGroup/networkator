@@ -9,21 +9,24 @@ import (
 func (s server) Router() *echo.Echo {
 	e := echo.New()
 
+	corsMiddleware := middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:     []string{"https://" + s.config.Domain, "http://" + s.config.Domain, "http://localhost:3000"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Accept", "Authorization", "Content-Type"},
+		AllowCredentials: true,
+		ExposeHeaders:    []string{"Link"},
+		MaxAge:           300,
+	})
+
 	e.Use(
 		middleware.Recover(),
 		middleware.Gzip(),
 		s.middleware.RequestLogger,
-		middleware.CORSWithConfig(middleware.CORSConfig{
-			AllowOrigins:     []string{"https://" + s.config.Domain, "http://" + s.config.Domain},
-			AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-			AllowHeaders:     []string{"Accept", "Authorization", "Content-Type"},
-			AllowCredentials: true,
-			ExposeHeaders:    []string{"Link"},
-			MaxAge:           300,
-		}),
+		corsMiddleware,
 	)
 
 	api := e.Group("/api")
+	api.Use(corsMiddleware)
 
 	// User group.
 	userPath := api.Group("/user")
