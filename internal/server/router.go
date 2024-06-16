@@ -10,7 +10,13 @@ func (s server) Router() *echo.Echo {
 	e := echo.New()
 
 	corsMiddleware := middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"https://" + s.config.Domain, "http://" + s.config.Domain, "http://localhost:3000"},
+		AllowOrigins: []string{
+			"https://" + s.config.Domain,
+			"http://" + s.config.Domain,
+			"http://localhost:3000",
+			"http://sigmamalegroup-rekru-2aae.twc1.net",
+			"https://sigmamalegroup-rekru-2aae.twc1.net",
+		},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Accept", "Authorization", "Content-Type"},
 		AllowCredentials: true,
